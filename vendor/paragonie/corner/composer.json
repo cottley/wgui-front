@@ -1,0 +1,32 @@
+{
+  "name": "paragonie/corner",
+  "description": "Generic PHP Exceptions and Errors, made user-friendly.",
+  "license": "ISC",
+  "authors": [
+    {
+      "name": "Paragon Initiative Enterprises",
+      "email": "security@paragonie.com"
+    }
+  ],
+  "config": {
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "ParagonIE\\Corner\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ParagonIE\\Corner\\Tests\\": "test/"
+    }
+  },
+  "require": {
+    "php": "^7.1|^8"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7",
+    "psalm/plugin-phpunit": "<1",
+    "vimeo/psalm": "^3"
+  }
+}

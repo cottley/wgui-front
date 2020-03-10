@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<psalm
+    autoloader="vendor/autoload.php"
+    stopOnFirstError="false"
+    useDocblockTypes="true"
+>
+    <projectFiles>
+        <directory name="src" />
+    </projectFiles>
+    <issueHandlers>
+        <RedundantConditionGivenDocblockType errorLevel="suppress" />
+    </issueHandlers>
+</psalm>

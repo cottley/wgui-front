@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{ wireguard_ui_self_service }}</title>
+		
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		
+		<link href="styles/home.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+	</head>
+	<body class="loggedin">
+		<!--nav class="navtop">
+			<div>
+				<h1>{{ wireguard_ui_self_service }}</h1>
+				<a href="logout.php"><i class="fas fa-sign-out-alt"></i>{{ logout }}</a>
+			</div>
+		</nav-->
+		<div class="sidebar">
+		  <h4>{{ wireguard_ui_self_service }}</h4>
+		  <a href="home.php"><i class="fas fa-home"></i> {{ home }}</a>
+		  {% if isadmin == 'Y' %}
+		  <a href="users.php"><i class="fas fa-users"></i> {{ users }}</a>
+		  <a href="settings.php"><i class="fas fa-sliders-h"></i> {{ settings }}</a>
+		  {% endif %}
+		  <a href="profile.php" class="active"><i class="fas fa-user-circle"></i> {{ profile }}</a>
+		  <a href="help.php"><i class="fas fa-question-circle"></i> {{ help }}</a>
+		  <a href="about.php"><i class="fas fa-info-circle"></i> {{ about }}</a>
+		  <a href="logout.php"><i class="fas fa-sign-out-alt"></i>{{ logout }}</a>
+		</div>
+		<div class="content">
+
+    {% for error in errors %}
+      <div class="alert alert-danger" role="alert">
+        {{ error }}
+	    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+
+	{% for warning in warnings %}
+	  <div class="alert alert-warning" role="alert">
+        {{ warning }}
+	    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+	
+	{% for success in successes %}
+	  <div class="alert alert-success" role="alert">
+        {{ success }}
+	    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}	
+
+      <h2>{{ lblProfilePage }}</h2>
+			<div>
+				<p>{{ lblYourAccountDetails }}</p>
+				<table>
+					<tr>
+						<td>{{ lblUsername }}</td>
+						<td>{{ dataUsername }}</td>
+					</tr>
+					<tr>
+						<td>{{ lblEmail }}</td>
+						<td>{{ dataEmail }}</td>
+					</tr>
+					<tr>
+						<td>{{ lblGivenName }}</td>
+						<td>{{ dataGivenName }}</td>
+					</tr>
+					<tr>
+						<td>{{ lblSurname }}</td>
+						<td>{{ dataSurname }}</td>
+					</tr>
+					<tr>
+						<td>{{ lblIsAdministrator }}</td>
+						<td>{{ dataIsAdmin }}</td>
+					</tr>					
+				</table>
+				<br/>
+				<h4>{{ lblActions }}</h4>
+				<p>
+				<button type="button" onclick="document.location.href='profile.php?mode=edit'">{{ lblEditProfile }}</button>
+				<br/><br/><br/>{{ lblNote }}
+				</p>
+			</div>
+
+		</div>
+		
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		
+		<link href="styles/home.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+		
+		<link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+		<link rel="stylesheet" href="//cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css">
+	</head>
+	<body class="loggedin">
+		<div class="sidebar">
+		  <h4>{{ wireguard_ui_self_service }}</h4>
+		  <a href="home.php"><i class="fas fa-home"></i> {{ home }}</a>
+		  {% if isadmin == 'Y' %}
+		  <a href="users.php" class="active"><i class="fas fa-users"></i> {{ users }}</a>
+		  <a href="settings.php"><i class="fas fa-sliders-h"></i> {{ settings }}</a>
+		  {% endif %}
+		  <a href="profile.php"><i class="fas fa-user-circle"></i> {{ profile }}</a>
+		  <a href="help.php"><i class="fas fa-question-circle"></i> {{ help }}</a>
+		  <a href="about.php"><i class="fas fa-info-circle"></i> {{ about }}</a>
+		  <a href="logout.php"><i class="fas fa-sign-out-alt"></i> {{ logout }}</a>
+		</div>
+		<div class="content">
+
+    {% for error in errors %}
+      <div class="alert alert-danger" role="alert">
+        {{ error }}
+	    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+
+	{% for warning in warnings %}
+	  <div class="alert alert-warning" role="alert">
+        {{ warning }}
+	    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+	
+	{% for success in successes %}
+	  <div class="alert alert-success" role="alert">
+        {{ success }}
+	    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}		
+	
+	    <h2>{{ lblUsersPage }}</h2>
+		
+			<div>
+<table id="users" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <!-- th></th -->
+				<th>{{ lblUsername }}</th>
+                <th>{{ lblEmail }}</th>
+                <th>{{ lblGivenName }}</th>
+                <th>{{ lblSurname }}</th>
+                <th>{{ lblIsAdministrator }}</th>
+                <th>{{ lblIsLoggedIntoPortal }}</th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>				
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+			    <!-- th></th -->
+                <th>{{ lblUsername }}</th>
+                <th>{{ lblEmail }}</th>
+                <th>{{ lblGivenName }}</th>
+                <th>{{ lblSurname }}</th>
+                <th>{{ lblIsAdministrator }}</th>
+                <th>{{ lblIsLoggedIntoPortal }}</th>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th></th>				
+            </tr>
+        </tfoot>
+    </table>
+	
+				<br/>
+				<h4>{{ lblActions }}</h4>
+				<p>
+				<button type="button" onclick="document.location.href='users.php?mode=create'">{{ lblCreateUser }}</button>&nbsp;&nbsp;<!-- button type="button" onclick="deleteSelected()">{{ lblDeleteSelected }}</button -->
+				</p>
+			</div>		
+		
+		</div>
+  
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLongTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="myModalMessage">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="myModalButtonConfirm">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+		
+		
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+	<script src="//cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>		
+		
+		<script type="text/javascript">
+		  var table;
+		  
+		  $(document).ready(function() {
+             table = $('#users').DataTable( {
+              "ajax": { 
+			    "url": './api/v1/getusers.php'
+			  },
+			  /*"select": true,*/
+			  "columns": [
+			   /* { "targets": 0, "data": null, "defaultContent": '', "orderable": false, "className": 'select-checkbox' }, */
+                { "data": "username", "orderable": true },
+				{ "data": "email", "orderable": true },
+				{ "data": "given_name", "orderable": true },
+				{ "data": "surname", "orderable": true },
+				{ "data": "isadmin", "orderable": true },
+				{ "data": "portalloggedin", "orderable": true },
+				{ "targets": -1, "data": null, "defaultContent": "<button class='editbutton'>{{ lblEdit }}</button>" },
+				{ "targets": -1, "data": null, "render": function (a, b, data, d) {
+				                                           if (data.username == 'admin') {
+														     return "";
+														   } else {
+                                                             return "<button class='deletebutton'>{{ lblDelete }}</button>";
+														   }
+                                                         } },
+                { "targets": -1, "data": null, "render": function (a, b, data, d) {
+				                                           if (data.username == 'admin') {
+														     return "";
+														   } else {
+                                                             return "<button class='impersonatebutton'>{{ lblImpersonate }}</button>";
+														   }
+                                                         } },
+				{ "targets": -1, "data": null, "render": function (a, b, data, d) {
+				                                           if (data.username == 'admin') {
+														     return "";
+														   } else {
+                                                             if (data.isadmin == 'Y') {
+                                                               return "<button class='removeadmin'>{{ lblRemoveFromAdmin }}</button>";
+                                                             } else {
+			                                                   return "<button class='addadmin'>{{ lblAddToAdmin }}</button>";
+			                                                 }
+														   }
+                                                         } },
+			  ],
+			  "order": [[ 1, 'asc' ]]
+            } );
+			
+			$('#users tbody').on( 'click', "button[class='editbutton']", function () {
+              var data = table.row( $(this).parents('tr') ).data();
+
+			  $("#myModalLongTitle").html("{{ lblEditingUser1 }}");
+			  $("#myModalMessage").html("{{ lblEditingUser2 }}:" + " " + data["username"]);
+			  $("#myModalButtonConfirm").click(function () { 
+			    window.location.href = "users.php?mode=edit&existinguser=" + data["username"];
+			  });
+			  $("#myModalButtonConfirm").removeClass("btn-danger");
+			  $('#myModal').modal("show");
+			  
+            } );
+	
+			$('#users tbody').on( 'click', "button[class='deletebutton']", function () {
+              var data = table.row( $(this).parents('tr') ).data();
+		  
+			  $("#myModalLongTitle").html("{{ lblDeletingUser1 }}");
+			  $("#myModalMessage").html("{{ lblDeletingUser2 }}:" + " " + data["username"] + ". " + "<br/>{{ lblDeletingUserConfirm }}");
+			  $("#myModalButtonConfirm").click(function () { 
+			    window.location.href = "users.php?mode=delete&existinguser=" + data["username"];
+			  });
+			  $("#myModalButtonConfirm").addClass("btn-danger");
+			  $('#myModal').modal("show");
+			  
+		    } );
+	
+            $('#users tbody').on( 'click', "button[class='impersonatebutton']", function () {
+              var data = table.row( $(this).parents('tr') ).data();
+			  $("#myModalLongTitle").html("{{ lblImpersonateUser }}");
+			  $("#myModalMessage").html("{{ lblImpersonatingUser }}:" + " " + data["username"]);
+			  $("#myModalButtonConfirm").click(function () { 
+			    window.location.href = "users.php?mode=impersonate&user=" + data["username"];
+			  });
+			  $("#myModalButtonConfirm").removeClass("btn-danger");
+			  $('#myModal').modal("show");
+		    } );
+			
+            $('#users tbody').on( 'click', "button[class='addadmin']", function () {
+              var data = table.row( $(this).parents('tr') ).data();
+              $("#myModalLongTitle").html("{{ lblAddToAdmin }}");
+			  $("#myModalMessage").html("{{ lblAddingUserToAdmin }}:" + " " + data["username"]);
+			  $("#myModalButtonConfirm").click(function () { 
+			    window.location.href = "users.php?mode=addadmin&newadminuser=" + data["username"];
+			  });
+			  $("#myModalButtonConfirm").removeClass("btn-danger");
+			  $('#myModal').modal("show");
+		    } );		
+
+            $('#users tbody').on( 'click', "button[class='removeadmin']", function () {
+              var data = table.row( $(this).parents('tr') ).data();
+			  $("#myModalLongTitle").html("{{ lblRemoveFromAdmin }}");
+			  $("#myModalMessage").html("{{ lblRemovingUserFromAdmin }}:" + " " + data["username"]);
+			  $("#myModalButtonConfirm").click(function () { 
+			    window.location.href = "users.php?mode=removeadmin&adminuser=" + data["username"];
+			  });
+			  $("#myModalButtonConfirm").removeClass("btn-danger");
+			  $('#myModal').modal("show");
+		    } );				
+			/*
+			$('#users tbody').on( 'click', 'tr', function () {
+              $(this).toggleClass('selected');
+            } );
+            */			
+          } );
+		  /*
+		  function deleteSelected() {
+		    console.log(table.rows( { selected: true } ).data()[0]);
+		  }
+		  */
+		</script>
+	</body>
+</html>

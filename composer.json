@@ -1,0 +1,13 @@
+{
+    "name": "cottley/wgui-front",
+    "description": "A front end for wgui",
+    "type": "project",
+    "require": {
+        "paragonie/easydb": "^2.11",
+        "monolog/monolog": "^2.0",
+        "twig/twig": "^3.0",
+        "paragonie/password_lock": "^3.0"
+    },
+    "license": "MIT",
+    "minimum-stability": "beta"
+}

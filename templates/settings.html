@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		
+		<link href="styles/home.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+		
+		<link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+	</head>
+	<body class="loggedin">
+		<div class="sidebar">
+		  <h4>{{ wireguard_ui_self_service }}</h4>
+		  <a href="home.php"><i class="fas fa-home"></i> {{ home }}</a>
+		  {% if isadmin == 'Y' %}
+		  <a href="users.php"><i class="fas fa-users"></i> {{ users }}</a>
+		  <a href="settings.php" class="active"><i class="fas fa-sliders-h"></i> {{ settings }}</a>
+		  {% endif %}
+		  <a href="profile.php"><i class="fas fa-user-circle"></i> {{ profile }}</a>
+		  <a href="help.php"><i class="fas fa-question-circle"></i> {{ help }}</a>
+		  <a href="about.php"><i class="fas fa-info-circle"></i> {{ about }}</a>
+		  <a href="logout.php"><i class="fas fa-sign-out-alt"></i> {{ logout }}</a>
+		</div>
+		<div class="content">
+
+    {% for error in errors %}
+      <div class="alert alert-danger" role="alert">
+        {{ error }}
+	    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+
+	{% for warning in warnings %}
+	  <div class="alert alert-warning" role="alert">
+        {{ warning }}
+	    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+	
+	    <h2>{{ lblSettings }}</h2>
+		
+<table id="users" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>{{ lblKey }}</th>
+                <th>{{ lblValue }}</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>{{ lblKey }}</th>
+                <th>{{ lblValue }}</th>
+            </tr>
+        </tfoot>
+    </table>		
+		
+		</div>
+		
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+		<script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+		
+		<script type="text/javascript">
+		  $(document).ready(function() {
+            $('#users').DataTable( {
+              "ajax": { 
+			    "url": './api/v1/getsettings.php'
+			  },
+			  "columns": [
+                { "data": "key", "orderable": true },
+				{ "data": "value", "orderable": true }
+			  ]
+				
+             } );
+          } );
+		</script>
+	</body>
+</html>

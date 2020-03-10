@@ -1,0 +1,197 @@
+.navtop {
+	background-color: #2f3947;
+	height: 60px;
+	width: 100%;
+	border: 0;
+}
+.navtop div {
+	display: flex;
+	margin: 0 auto;
+	width: 1000px;
+	height: 100%;
+}
+.navtop div h1, .navtop div a {
+	display: inline-flex;
+	align-items: center;
+}
+.navtop div h1 {
+	flex: 1;
+	font-size: 24px;
+	padding: 0;
+	margin: 0;
+	color: #eaebed;
+	font-weight: normal;
+}
+.navtop div a {
+	padding: 0 20px;
+	text-decoration: none;
+	color: #c1c4c8;
+	font-weight: bold;
+}
+.navtop div a i {
+	padding: 2px 8px 0 0;
+}
+.navtop div a:hover {
+	color: #eaebed;
+}
+body.loggedin {
+	background-color: #f3f4f7;
+}
+/*
+.content {
+	width: 1000px;
+	margin: 0 auto;
+}
+*/
+.content {
+  margin: auto;	
+}
+
+.content h2 {
+	margin: 0;
+	padding: 25px 0;
+	font-size: 22px;
+	border-bottom: 1px solid #e0e0e3;
+	color: #4a536e;
+}
+
+.content h3 {
+	margin: 0;
+	padding: 25px 0;
+	font-size: 20px;
+	border-bottom: 1px solid #e0e0e3;
+	color: #4a536e;
+}
+
+.content > p, .content > div {
+	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+	margin: 25px 0;
+	padding: 25px;
+	background-color: #fff;
+}
+.content > p table td, .content > div table td {
+	padding: 5px;
+}
+.content > p table td:first-child, .content > div table td:first-child {
+	font-weight: bold;
+	color: #4a536e;
+	padding-right: 15px;
+}
+.content > div p {
+	padding: 5px;
+	margin: 0 0 10px 0;
+}
+/*
+.row-container {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	flex-direction: column;
+	background-color: blue;
+	overflow: hidden;
+}
+
+.first-row {
+	background-color: lime;
+}
+
+.second-row { 
+    flex-grow: 1;
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+*/
+			
+ /* The side navigation menu */
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 170px;
+  background-color: #2f3947;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+.logotext {
+	
+}
+
+.sidebar h4 {
+  color: white;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* Sidebar links */
+.sidebar a {
+  display: block;
+  color: white;
+  padding: 16px;
+  text-decoration: none;
+}
+
+/* Active/current link */
+.sidebar a.active {
+  background-color: #f3f4f7; /* #4CAF50; */
+  color: black;
+}
+
+/* Links on mouse-over */
+.sidebar a:hover:not(.active) {
+  background-color: #6200ee; /* #555; */
+  color: white;
+}
+
+/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+div.content {
+  margin-left: 170px;
+  padding: 1px 16px;
+  /* height: 1000px; */
+  overflow: auto;
+  max-height: 100vh;
+}
+
+/* On screens that are less than 700px wide, make the sidebar into a topbar */
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+} 				
+
+figure img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+figure figcaption {
+    text-align: center;
+}
+
+.youtube-iframe-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; 
+  height: 0;
+}
+.youtube-iframe-container iframe {
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

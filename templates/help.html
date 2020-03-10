@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		
+		<link href="styles/home.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+		
+		<link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+		
+	</head>
+	<body class="loggedin">
+		<div class="sidebar">
+		  <h4>{{ wireguard_ui_self_service }}</h4>
+		  <a href="home.php"><i class="fas fa-home"></i> {{ home }}</a>
+		  {% if isadmin == 'Y' %}
+		  <a href="users.php"><i class="fas fa-users"></i> {{ users }}</a>
+		  <a href="settings.php"><i class="fas fa-sliders-h"></i> {{ settings }}</a>
+		  {% endif %}
+		  <a href="profile.php"><i class="fas fa-user-circle"></i> {{ profile }}</a>
+		  <a href="help.php" class="active"><i class="fas fa-question-circle"></i> {{ help }}</a>
+		  <a href="about.php"><i class="fas fa-info-circle"></i> {{ about }}</a>
+		  <a href="logout.php"><i class="fas fa-sign-out-alt"></i> {{ logout }}</a>
+		</div>
+		<div class="content">
+
+    {% for error in errors %}
+      <div class="alert alert-danger" role="alert">
+        {{ error }}
+	    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+
+	{% for warning in warnings %}
+	  <div class="alert alert-warning" role="alert">
+        {{ warning }}
+	    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endfor %}
+	
+	    <h2>{{ lblHelpPage }}</h2>
+		
+		<h3>Demo</h3>
+		
+		<div class="youtube-iframe-container">
+		<iframe width="100%" height="800" src="https://www.youtube.com/embed/sLXlv6P6Vp0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</div>
+		
+		<h3>Navigation</h3>
+	
+		After logging in, you will be presented with a menu on the left hand side of your screen. There are two roles in the system: Admin and User. An Admin level user has access to view and manage users as well as see additional settings.<br/><br/>
+	
+
+        <figure>
+          <img src="images/navigation-01.png" alt="Menu for Administrator">
+          <figcaption>Navigation Figure 01 - Menu for Administrator.</figcaption>
+        </figure> 
+		
+		
+		<ul>
+		  <li>Home provides access for the creation and management of VPN access as an authenticated user.</li>
+          <li>Users is an Admin only function that provides access to manage users, passwords and roles.</li>
+		  <li>Settings is an Admin only function that provides access to view the configuration of the front end.</li>
+		  <li>Profile provides access to users to self serve themselves to update their information and change their password.</li>
+		  <li>About provides information about the software.</li>
+		  <li>Logout gives the user the ability to exit the system.</li>
+        </ul>		  
+
+		
+		<h4>Home</h4>
+		
+        <figure>
+          <img src="images/home-01.png" alt="Embedded VPN account management" width="80%">
+          <figcaption>Home Figure 01 - Embedded VPN account management.</figcaption>
+        </figure> 
+		<br/><br/><br/><br/>
+		
+        <figure>
+          <img src="images/home-02.png" alt="After adding, unnamed client with assigned IP address" width="80%">
+          <figcaption>Home Figure 02 - After adding, unnamed client with assigned IP address.</figcaption>
+        </figure> 
+		<br/><br/><br/><br/>
+				
+        <figure>
+          <img src="images/home-03.png" alt="Modifying the name and description of the client" width="80%">
+          <figcaption>Home Figure 03 - Modifying the name and description of the client.</figcaption>
+        </figure> 
+		<br/><br/><br/><br/>
+		
+        <figure>
+          <img src="images/home-04.png" alt="After modification with new label" width="80%">
+          <figcaption>Home Figure 04 - After modification with new label.</figcaption>
+        </figure> 
+		<br/><br/><br/><br/>
+		
+        <figure>
+          <img src="images/home-05.png" alt="Deleting a client configuration" width="80%">
+          <figcaption>Home Figure 05 - Deleting a client configuration.</figcaption>
+        </figure>
+		<br/><br/><br/><br/>
+ 		
+		
+		
+		
+		
+		<h4>Profile</h4>
+		
+        <figure>
+          <img src="images/profile-01.png" alt="Profile information for current user" width="80%">
+          <figcaption>Profile Figure 01 - Profile information for current user.</figcaption>
+        </figure> 
+		<br/><br/><br/><br/>
+		
+        <figure>
+          <img src="images/profile-02.png" alt="Editing Profile Information" width="80%">
+          <figcaption>Profile Figure 02 - Editing Profile Information.</figcaption>
+        </figure>
+		<br/><br/><br/><br/>
+
+		
+		<h3>Administration</h3>
+		
+		<h4>Users</h4>
+				
+		
+        <figure>
+          <img src="images/users-01.png" alt="User listing" width="80%">
+          <figcaption>Users Figure 01 - User listing.</figcaption>
+        </figure> 
+		<br/><br/><br/><br/>
+						
+        <figure>
+          <img src="images/users-02.png" alt="Create user" width="80%">
+          <figcaption>Users Figure 02 - Create User.</figcaption>
+        </figure>
+		<br/><br/><br/><br/>
+		
+        <figure>
+          <img src="images/users-03.png" alt="Create user Jdoe" width="80%">
+          <figcaption>Users Figure 03 - Create User Jdoe.</figcaption>
+        </figure>
+		<br/><br/><br/><br/>
+
+        <figure>
+          <img src="images/users-04.png" alt="Created user Jdoe" width="80%">
+          <figcaption>Users Figure 04 - Created User Jdoe.</figcaption>
+        </figure>
+		<br/><br/><br/><br/>
+		
+        <figure>
+          <img src="images/users-05.png" alt="Jdoe in user list" width="80%">
+          <figcaption>Users Figure 05 - Jdoe in user list.</figcaption>
+        </figure>
+        <br/><br/><br/><br/>		
+		
+        <figure>
+          <img src="images/users-06.png" alt="Editing Jdoe" width="80%">
+          <figcaption>Users Figure 06 - Editing Jdoe.</figcaption>
+        </figure>
+        <br/><br/><br/><br/>		
+		
+        <figure>
+          <img src="images/users-07.png" alt="Changing Joe to Jane" width="80%">
+          <figcaption>Users Figure 07 - Changing Joe to Jane.</figcaption>
+        </figure>
+        <br/><br/><br/><br/>		
+		
+        <figure>
+          <img src="images/users-08.png" alt="Update successful" width="80%">
+          <figcaption>Users Figure 08 - Update successful.</figcaption>
+        </figure>
+		<br/><br/><br/><br/>
+
+        <figure>
+          <img src="images/users-09.png" alt="Making user Jdoe an administrator" width="80%">
+          <figcaption>Users Figure 09 - Making user Jdoe an administrator.</figcaption>
+        </figure>
+		<br/><br/><br/><br/>
+		
+        <figure>
+          <img src="images/users-10.png" alt="Jdoe has administrator flag set to Y" width="80%">
+          <figcaption>Users Figure 10 - Jdoe has administrator flag set to Y.</figcaption>
+        </figure>
+		<br/><br/><br/><br/>
+		
+        <figure>
+          <img src="images/users-11.png" alt="Removing administrator role" width="80%">
+          <figcaption>Users Figure 11 - Removing administrator role.</figcaption>
+        </figure>
+		<br/><br/><br/><br/>
+		
+        <figure>
+          <img src="images/users-12.png" alt="Jdoe has administrator flag set to N" width="80%">
+          <figcaption>Users Figure 12 - Jdoe has administrator flag set to N.</figcaption>
+        </figure>
+		<br/><br/><br/><br/>
+		
+        <figure>
+          <img src="images/users-13.png" alt="Administrator impersonating user without knowing their password" width="80%">
+          <figcaption>Users Figure 13 - Administrator impersonating a user without knowing their password.</figcaption>
+        </figure>
+		<br/><br/><br/><br/>
+		
+        <figure>
+          <img src="images/users-14.png" alt="Deleting user Jdoe" width="80%">
+          <figcaption>Users Figure 14 - Deleting user Jdoe.</figcaption>
+        </figure>
+		<br/><br/><br/><br/>
+		
+        <figure>
+          <img src="images/users-15.png" alt="User Jdoe deleted" width="80%">
+          <figcaption>Users Figure 15 - User Jdoe deleted.</figcaption>
+        </figure> 
+
+		
+		<h4>Settings</h4>
+		The Settings entry shows the current entry for configuration values in the system.
+		
+        <figure>
+          <img src="images/settings-01.png" alt="Menu for Administrator" width="80%">
+          <figcaption>Settings Figure 01 - Menu for Administrator.</figcaption>
+        </figure> 
+        <br/><br/><br/><br/>
+		
+		<h3>{{ lblWarningCodes }}</h3>
+<table id="warnings" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>{{ lblCode }}</th>
+                <th>{{ lblDescription }}</th>
+				<th>{{ lblTroubleshooting }}</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>{{ lblCode }}</th>
+                <th>{{ lblDescription }}</th>
+				<th>{{ lblTroubleshooting }}</th>
+            </tr>
+        </tfoot>
+    </table>			
+		
+	    <h3>Error Codes</h3>
+<table id="errors" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>{{ lblCode }}</th>
+                <th>{{ lblDescription }}</th>
+				<th>{{ lblTroubleshooting }}</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>{{ lblCode }}</th>
+                <th>{{ lblDescription }}</th>
+				<th>{{ lblTroubleshooting }}</th>
+            </tr>
+        </tfoot>
+    </table>		
+		
+		</div>
+		
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+		<script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+		
+		<script type="text/javascript">
+		  $(document).ready(function() {
+            $('#warnings').DataTable( {
+              "ajax": { 
+			    "url": './api/v1/getwarningcodes.php'
+			  },
+			  "pageLength": 100,
+			  "columns": [
+                { "data": "code", "orderable": true },
+				{ "data": "description", "orderable": true },
+				{ "data": "troubleshooting", "orderable": true }
+			  ]
+				
+             } );
+			 
+            $('#errors').DataTable( {
+              "ajax": { 
+			    "url": './api/v1/geterrorcodes.php'
+			  },
+			  "pageLength": 100,
+			  "columns": [
+                { "data": "code", "orderable": true },
+				{ "data": "description", "orderable": true },
+				{ "data": "troubleshooting", "orderable": true }
+			  ]
+				
+             } );
+
+          } );
+		</script>
+	</body>
+</html>
