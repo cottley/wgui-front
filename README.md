@@ -19,7 +19,7 @@ Note that this front  end requires the [forked wg-ui](https://github.com/cottley
 ## Installing
 
  * Copy the files to the /var/www/html directory.
- * Ensure that the logs subdirectory is readable by the web server user.
+ * Ensure that the logs subdirectory is writeable by the web server user.
  * Modify the wguiauth.path.to.sqlite.db setting in the config.php  file to point to the path for the sqlite database file that is writable by the web server user.
  * Modify the wguiauth.wgui.url setting in the config.php file to be the reverse proxy path on the webserver for the WireGuard-UI service.
  * Upon first run, login as admin/admin and change the password using the profile page for the admin user.
