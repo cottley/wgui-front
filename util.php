@@ -4,9 +4,16 @@
    
   // create a log channel
   $log = new \Monolog\Logger('wgui-front');
-  $log->pushHandler(new \Monolog\Handler\StreamHandler(getConfig('wguiauth.logger.path'), getConfig('wguiauth.logger.level')));
+  if (getConfig('wguiauth.logger.path') == 'stdout') {
+    $log->pushHandler(new \Monolog\Handler\ErrorLogHandler(), 
+      getConfig('wguiauth.logger.level'));
+  } else{
+    $log->pushHandler(new \Monolog\Handler\StreamHandler(getConfig('wguiauth.logger.path'), getConfig('wguiauth.logger.level')));
+  }
 
-  $dbpath = getConfig('wguiauth.path.to.sqlite.db');
+  $dbpath = getConfig('wguiauth.db');
+  $dbUser = getConfig('wguiauth.db.user');
+  $dbPassword = getConfig('wguiauth.db.password');
   
   $errors = array();
   $warnings = array();
@@ -29,10 +36,21 @@ function userSuccess($message) {
 }
 
 function _getDB() {
+  global $log;
+
+  
   global $dbpath;
-  $result = \ParagonIE\EasyDB\Factory::fromArray([
-    'sqlite:'.$dbpath
-  ]);
+  global $dbUser;
+  global $dbPassword;
+  if ($dbUser != null and $dbPassword != null){
+    $result = \ParagonIE\EasyDB\Factory::fromArray([
+      $dbpath, $dbUser, $dbPassword
+    ]);
+  }else{
+    $result = \ParagonIE\EasyDB\Factory::fromArray([
+      $dbpath
+    ]);
+  }
   return $result;
 }
   
@@ -40,9 +58,21 @@ function initializeDBIfNotExists($dbpath) {
 
   try {
 	
-    $db = _getDB();
-	
-	$accountsExists = $db->cell("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name=?", "accounts");
+  $db = _getDB();
+  $accountsExists = 0;
+  switch($db->getDriver()){
+    case "mysql":
+    case "pgsql":
+      $accountsExists = $db->cell("SELECT COUNT(*) FROM information_schema.tables WHERE table_name=?", "accounts");
+    break;
+    case "sqlite":
+      $accountsExists = $db->cell("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name=?", "accounts");
+    break;
+    default:
+      global $log;
+      $log->error('ERR010: Wrong driver for db'.$dbpath);
+    break;
+  }
 	
 	if ($accountsExists == 0) {
 	
@@ -53,25 +83,25 @@ function initializeDBIfNotExists($dbpath) {
 	 $db->run('CREATE TABLE usersessions(username text PRIMARY KEY, sessionid text)');
 	 
      $adminKey = \Defuse\Crypto\Key::createNewRandomKey();
-	 $adminKeyStr = $adminKey->saveToAsciiSafeString();
+	   $adminKeyStr = $adminKey->saveToAsciiSafeString();
      $adminPassword = \ParagonIE\PasswordLock\PasswordLock::hashAndEncrypt('admin'.$adminKeyStr, $adminKey);
 
      $db->insert('accounts', [
-	   'username' => 'admin',
-	   'password' => $adminPassword,
-	   'salt' => $adminKeyStr,
-	   'given_name' => 'Administrator',
-	   'isadmin' => 'Y'
+  	   'username' => 'admin',
+  	   'password' => $adminPassword,
+  	   'salt' => $adminKeyStr,
+  	   'given_name' => 'Administrator',
+  	   'isadmin' => 'Y'
 	   ]);
 	   
 	} 
 	
 	
-	
   } catch (\ParagonIE\EasyDB\Exception\ConstructorFailed $e) {
     global $log;
 	//$log->warning('Foo');
-    $log->error('ERR001: Could not access sqlite database at '.$dbpath);
+    $log->error('ERR001: Could not access database at '.$dbpath);
+    $log->error($e);
 	
 	userError('ERR001', 'Unable to connect to database, login may not function as expected.');
   }
